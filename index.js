@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function (){
 
+    //ERRORS SEEM TO OCCUR DUE TO HASH SYMBOL (#) IN IMAGE URLs.
     fetch(`http://localhost:3000/heros`)
     .then((r)=> r.json())
-    .then((eachHero) => {
-        eachHero.forEach((eachHero)=>{
+    .then((heros) => {
+        heros.forEach((eachHero)=>{
             //Define array to assign Most Wanted individual to with info.
-            console.log(eachHero.name)
             let criminallyNestedArray = [[],[],[],[],[],[],[],[],[],[]]
             const inputField = document.createElement("input")
             const subBody = document.createElement("div")
@@ -13,41 +13,39 @@ document.addEventListener("DOMContentLoaded", function (){
             const submitButton = document.createElement("button")
             const submitButtonDiv = document.createElement("div")
             let finalArray = []
-
-            
             submitButton.innerText = "Submit Tasteful, Politically Correct Mad Lib"
             submitButton.classList.fontSize = "small"
-
-    
-            //DOM manipulation.
             const body = document.querySelector("body")
-    
+            const imageHTML = document.createElement("img")
+            const nameHTML = document.createElement("p")
+
             //This for loop assigns hero info from JSON to criminallyNestedArray.
-            for(let i = 0; i < eachHero.length; i++){
-                const imageHTML = document.createElement("img")
-                if (criminal.data.items[i].images[0].original != null){
+            for(let i = 0; i < heros.length; i++){
+               
+
                     criminallyNestedArray[i].push(eachHero.image)
-                }
-    
-                const nameHTML = document.createElement("p")
-                if(criminal.data.items[i].title != null){
+                    console.log(criminallyNestedArray[i][0])
                     criminallyNestedArray[i].push(eachHero.name)
-                 }
     
-                 if(criminal.data.items[i].caution != null){
                     criminallyNestedArray[i].push(eachHero.bio)
-                 }
+
+                
                 }
+           
     
-        //SHUFFLER FUNCTION
+        //Determines random hero
         function rando (array){
-            let randomNumber = Math.floor(Math.random() * 9)
+            let randomNumber = Math.floor(Math.random() * 15)
             return array[randomNumber]
         }
     
         //Render the current hero within the DOM
         function renderRando(randomCriminal){
             let imageHTML = document.createElement("img")
+            
+            console.log("0 :" + randomCriminal[0])
+            console.log("1 :" + randomCriminal[1])
+            console.log("2 :" + randomCriminal[2])
             imageHTML.src = randomCriminal[0]
             body.appendChild(imageHTML)
             
@@ -56,15 +54,13 @@ document.addEventListener("DOMContentLoaded", function (){
             nameHTML.style.fontSize = "x-large"
             body.appendChild(nameHTML)
         
-            let tempString = removeHTML()
+            // If the bio has HTML, use this spot to remove it.  let tempString = removeHTML()
+
+            let tempString = randomCriminal[2]
             
-            // cautionHTML.innerText = 
             removeWord(tempString)
 
             finalFunction()
-    
-            
-    
     
         }
     
@@ -81,12 +77,10 @@ document.addEventListener("DOMContentLoaded", function (){
                 const nameHTML = document.querySelectorAll("p")[0]
                 const spans = document.querySelectorAll("span")
                 const inputs = document.querySelectorAll("input")
-                // const cautionHTML = document.querySelectorAll("p")[1]
                 
                 subBody.innerHTML = ""
                 imageHTML.remove()
                 nameHTML.remove()
-                // cautionHTML.remove()
                 shuffle.remove()
              
                 for (let i = 0; i < spans.length; i++){
@@ -95,6 +89,10 @@ document.addEventListener("DOMContentLoaded", function (){
 
                  //Random hero assigned to variable
                  randomCriminal = rando(criminallyNestedArray)
+                //  console.log(randomCriminal[0])
+                //  console.log(randomCriminal[1])
+                //  console.log(randomCriminal[2])
+
                  //call the function to append info to DOM
                 renderRando(randomCriminal)
                 
@@ -106,34 +104,33 @@ document.addEventListener("DOMContentLoaded", function (){
             })
             body.appendChild(shuffle)
             finalFunction()
-            // console.log(forShuffle)
         }
     
         //Random hero assigned to variable
         let randomCriminal = rando(criminallyNestedArray)
     
         //This function is used to remove HTML elements 
-        function removeHTML(){
-            let newString = ""
-            let tagCounter = 0
-            //WORKING HERE AT RANDOMCRIMINAL2
-            for(let i = 0; i < randomCriminal[2].length; i++) {
-                if(randomCriminal[2][i] === "<"){
-                    tagCounter++
-                }
-                if(randomCriminal[2][i] === ">"){
-                    i = i + tagCounter  - 2
-                    tagCounter = 0
-                }
-                if(randomCriminal[2][i] != "<" && randomCriminal[2][i] != ">" && tagCounter === 0 && randomCriminal[2][i] != undefined){
-                    newString += randomCriminal[2][i]
-                }
-                else {
-                    tagCounter++
-                }
-            }
-            return newString
-        }
+        // function removeHTML(){
+        //     let newString = ""
+        //     let tagCounter = 0
+        //     //WORKING HERE 
+        //     for(let i = 0; i < randomCriminal[2].length; i++) {
+        //         if(randomCriminal[2][i] === "<"){
+        //             tagCounter++
+        //         }
+        //         if(randomCriminal[2][i] === ">"){
+        //             i = i + tagCounter  - 2
+        //             tagCounter = 0
+        //         }
+        //         if(randomCriminal[2][i] != "<" && randomCriminal[2][i] != ">" && tagCounter === 0 && randomCriminal[2][i] != undefined){
+        //             newString += randomCriminal[2][i]
+        //         }
+        //         else {
+        //             tagCounter++
+        //         }
+        //     }
+        //     return newString
+        // }
     
         //call the function to append info to DOM
         renderRando(randomCriminal)
@@ -209,12 +206,8 @@ document.addEventListener("DOMContentLoaded", function (){
         function finalFunction(){
         let theImage = document.querySelector("img")
         theImage.addEventListener("mouseover", ()=>{
-            // const subTitle = document.createElement("")
-            // subTitle.title = "Roast 'em!"
-            // theImage.appendChild(subTitle)
             theImage.title = "Roast 'em!"
         })
-
     }
   
             //End forEach for each criminal
