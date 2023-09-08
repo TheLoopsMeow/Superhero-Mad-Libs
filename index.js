@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function (){
             //DOM manipulation.
             const body = document.querySelector("body")
     
-            //This for loop assigns criminal info from JSON to criminallyNestedArray.
+            //This for loop assigns hero info from JSON to criminallyNestedArray.
             for(let i = 0; i < eachHero.length; i++){
                 const imageHTML = document.createElement("img")
                 if (criminal.data.items[i].images[0].original != null){
@@ -39,13 +39,13 @@ document.addEventListener("DOMContentLoaded", function (){
                  }
                 }
     
-        //CRIMINAL SHUFFLER FUNCTION
+        //SHUFFLER FUNCTION
         function rando (array){
             let randomNumber = Math.floor(Math.random() * 9)
             return array[randomNumber]
         }
     
-        //Render the current criminal within the DOM
+        //Render the current hero within the DOM
         function renderRando(randomCriminal){
             let imageHTML = document.createElement("img")
             imageHTML.src = randomCriminal[0]
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function (){
                     spans[i].remove()
                 }
 
-                 //Random criminal assigned to variable
+                 //Random hero assigned to variable
                  randomCriminal = rando(criminallyNestedArray)
                  //call the function to append info to DOM
                 renderRando(randomCriminal)
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function (){
             // console.log(forShuffle)
         }
     
-        //Random criminal assigned to variable
+        //Random hero assigned to variable
         let randomCriminal = rando(criminallyNestedArray)
     
         //This function is used to remove HTML elements 
